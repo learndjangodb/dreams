@@ -1,0 +1,9 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}DreamReal - List {% endblock %}
+
+{% block content %}
+	{% for obj in object_list %}
+		<p>{{ obj.name }}</p>
+	{% endfor %}
+{% endblock %}

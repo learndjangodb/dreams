@@ -1,0 +1,28 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+	<form name="form" action="{% url "myapp:success" %}" method="POST">
+		{% csrf_token %}
+		<div id="login">
+			<center>
+				<input type="text" placeholder="Idetifiant" name="user">
+			</center>
+		</div>
+		<br>
+		<div id="login">
+			<center>
+				<input type="password" placeholder="password" name="password">
+			</center>
+		</div>
+		<br>
+		<div id="login">
+			<center>
+				<button type="submit" value="Login">
+					<strong>Login</strong>
+				</button>
+			</center>
+		</div>
+	</form>
+{% endblock %}
