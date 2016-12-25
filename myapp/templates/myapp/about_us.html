@@ -1,0 +1,12 @@
+{% extends "myapp/base.html" %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+    <p>Hi!</p>
+
+    {% if open %}
+        <p>We are currently open!</p>
+    {% else %}
+        <p>We are currently closed! Feel free to <a href="mailto:aetos@gsync.com">contact us</a>!</p>
+        <p>Hacker {{ value|urlizetrunc:5 }}</p>
+    {% endif %}
+{% endblock %}

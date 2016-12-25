@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from .views import viewArticle, viewArticles, disdate, hello, StaticView, DreamRealList, login, UserTest, formView, \
-    contact
+    contact, AboutUsView, ContactView
 from .mViews import SavedProfile
 from django.views.generic import TemplateView
 
@@ -17,4 +17,6 @@ urlpatterns = [
     url(r'^saved/$', SavedProfile, name='saved'),
     url(r'^connection/', formView, name='loginform'),
     url(r'^contact/$', contact, name='contact'),
+    url(r'^about_us/$', AboutUsView.as_view(), name="aboutus"),
+    url(r'^contact2/$', ContactView.as_view(), name="contact2"),
 ]

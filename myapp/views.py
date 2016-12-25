@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect, render_to_response
 from django.http import HttpResponse
-from .models import DreamReal
-import datetime
-from .forms import ContactForm
+from django.urls import reverse_lazy
+from django.utils.timezone import now
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.template.loader import get_template
+from django.views.generic import TemplateView, ListView, FormView
+
+from .models import DreamReal
+import datetime
+from .forms import ContactForm
+
 
 
 # Create your views here.
@@ -19,7 +24,7 @@ def hello(request):
 def viewArticle(request, articleID):
     text = "Displaying the article: %s" % articleID
     # return HttpResponse(text)
-    return redirect(viewArticles, month="02", year="2045")
+    return redirect('myapp:articles2', month="12", year="2045")
 
 
 def viewArticles(request, month, year):
@@ -89,8 +94,6 @@ def dataManipulation(request):
 
     return HttpResponse(res)
 
-
-from django.views.generic import TemplateView, ListView
 
 
 class StaticView(TemplateView):
@@ -181,10 +184,29 @@ def contact(request):
             email = EmailMessage(
                 "New contact form submission",
                 content,
-                "Your website" + '',
+                "aetos.org" + '',
                 ['targetibps42@gmail.com'],
                 headers={'Reply-To': contact_email}
             )
             email.send()
             return redirect('myapp:contact')
     return render(request, 'myapp/contact.html', {'form': form_class})
+
+
+class AboutUsView(TemplateView):
+    template_name = 'myapp/about_us.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super(AboutUsView, self).get_context_data(**kwargs)
+        if now().weekday() < 5 and 8 < now().hour < 18:
+            context['open'] = True
+        else:
+            context['open'] = False
+            context['value'] = "Aetos@online.com"
+        return context
+
+class ContactView(FormView):
+    form_class = ContactForm
+    success_url = reverse_lazy('myapp:contact2')
+    template_name = 'myapp/contact.html'

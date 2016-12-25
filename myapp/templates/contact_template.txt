@@ -1,8 +1,8 @@
-contact Name:
+Contact Name:
 {{ contact_name }}
 
-email:
+Email:
 {{ contact_email }}
 
-content:
+Content:
 {{ form_content|safe|striptags }}
