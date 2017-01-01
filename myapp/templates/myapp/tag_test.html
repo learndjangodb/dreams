@@ -1,0 +1,14 @@
+{% extends "myapp/base.html" %}
+{% load review_extras %}
+
+{% block title %}Tag - Test{% endblock %}
+
+{% block content %}
+    <p class="text-center col-sm-12">Custom template tag test for register.filter {{ value|hack }}</p>
+    {{ hacker }}
+    {# {% authorList %}  #}
+    <ul>
+        <li>The time is {% current_time "%Y-%m-%d %I:%M %p" %}</li>
+    </ul>
+
+{% endblock %}

@@ -1,6 +1,6 @@
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, render_to_response
-from django.http import HttpResponse
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.timezone import now
 from django.core.mail import EmailMessage
 from django.template import Context
@@ -9,8 +9,7 @@ from django.views.generic import TemplateView, ListView, FormView
 
 from .models import DreamReal
 import datetime
-from .forms import ContactForm
-
+from .forms import ContactForm, AuthorForm
 
 
 # Create your views here.
@@ -24,7 +23,7 @@ def hello(request):
 def viewArticle(request, articleID):
     text = "Displaying the article: %s" % articleID
     # return HttpResponse(text)
-    return redirect('myapp:articles2', month="12", year="2045")
+    return redirect('hacker:viewArticles', month="12", year="2045")
 
 
 def viewArticles(request, month, year):
@@ -93,7 +92,6 @@ def dataManipulation(request):
         res += elt.name + '<br>'
 
     return HttpResponse(res)
-
 
 
 class StaticView(TemplateView):
@@ -189,13 +187,12 @@ def contact(request):
                 headers={'Reply-To': contact_email}
             )
             email.send()
-            return redirect('myapp:contact')
+            return redirect('hacker:contact')
     return render(request, 'myapp/contact.html', {'form': form_class})
 
 
 class AboutUsView(TemplateView):
     template_name = 'myapp/about_us.html'
-
 
     def get_context_data(self, **kwargs):
         context = super(AboutUsView, self).get_context_data(**kwargs)
@@ -206,7 +203,22 @@ class AboutUsView(TemplateView):
             context['value'] = "Aetos@online.com"
         return context
 
+
 class ContactView(FormView):
     form_class = ContactForm
-    success_url = reverse_lazy('myapp:contact2')
+    success_url = reverse_lazy('hacker:contact2')
     template_name = 'myapp/contact.html'
+
+
+def create(request):
+    if request.method == 'POST':
+        form = AuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("myapp:adddata")
+    else:
+        return render(request, "myapp/create.html", {'form': AuthorForm()})
+
+
+def tagTest(request, value):
+    return render(request, "myapp/tag_test.html", {'value': value, 'hacker': '# Hacker Online'})

@@ -1,5 +1,7 @@
 from django import forms
-from .models import DreamReal
+from django.forms import ModelForm
+
+from .models import DreamReal, Author, Book
 
 
 class LoginForm(forms.Form):
@@ -34,3 +36,19 @@ class ContactForm(forms.Form):
         self.fields['contact_name'].label = "Your Name"
         self.fields['contact_email'].label = "Your email:"
         self.fields['content'].label = "What do you want to say?"
+
+
+class AuthorForm(ModelForm):
+    class Meta:
+        model = Author
+        fields = ['title', 'name', 'birth_date']
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Username'}),
+            'birth_date': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD'}),
+        }
+
+
+class BookForm(ModelForm):
+    class Meta:
+        model = Book
+        fields = ['name', 'authors']
