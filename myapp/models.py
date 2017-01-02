@@ -1,4 +1,5 @@
 from django.db import models as m
+from django.utils.html import format_html
 
 
 # Create your models here.
@@ -85,3 +86,17 @@ class Response(m.Model):
     poll = m.ForeignKey(OpinionPoll, on_delete=m.CASCADE)
     person_name = m.CharField(max_length=50)
     response = m.TextField()
+
+
+class Person(m.Model):
+    first_name = m.CharField(max_length=50)
+    last_name = m.CharField(max_length=50)
+    color_code = m.CharField(max_length=10)
+
+    def colored_name(self):
+        return format_html(
+            '<span style="color: #{};">{} {}</span>',
+            self.color_code,
+            self.first_name,
+            self.last_name
+        )

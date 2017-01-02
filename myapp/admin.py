@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DreamReal, Online, Author, Book, OpinionPoll, Response
+from .models import DreamReal, Online, Author, Book, OpinionPoll, Response, Person
 
 
 # Register your models here.
@@ -13,6 +13,7 @@ admin.site.register(DreamReal, CmpAdmin)
 @admin.register(Author)
 class AdminAuthor(admin.ModelAdmin):
     list_display = ['title', 'name', 'birth_date']
+    empty_value_display = '-empty-'
 
 
 @admin.register(Book)
@@ -29,3 +30,8 @@ class AdminPoll(admin.ModelAdmin):
 class AdminResonse(admin.ModelAdmin):
     list_display = ['person_name', 'response']
     list_filter = ['poll', 'person_name']
+
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'colored_name')

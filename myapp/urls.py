@@ -1,8 +1,10 @@
 from django.conf.urls import url
 from .views import (viewArticle, viewArticles, disdate, hello, StaticView, DreamRealList, login, UserTest, formView, \
-    contact, AboutUsView, ContactView, create, tagTest)
-from .mViews import SavedProfile
+                    contact, AboutUsView, ContactView, create, tagTest)
+from .Auth_view import SavedProfile, home
 from django.views.generic import TemplateView
+from django.contrib.auth import views
+from .forms import LoginForm
 
 urlpatterns = [
     url(r'^article/(\d+)/$', viewArticle, name='article'),
@@ -21,4 +23,7 @@ urlpatterns = [
     url(r'^contact2/$', ContactView.as_view(), name="contact2"),
     url(r'^create/$', create, name="adddata"),
     url(r'^tagtst/(?P<value>\w+)/$', tagTest, name="tagtest"),
+    url(r'^$', home, name="home"),
+    url(r'^login/$', views.login, {'template_name': 'myapp/Auth/login.html', 'authentication_form': LoginForm}),
+    url(r'^logout/$', views.logout, {'next_page': '/login'}),
 ]

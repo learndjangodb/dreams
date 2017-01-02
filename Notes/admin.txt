@@ -1,0 +1,42 @@
+The authentication system consists of:
+
+    > Users
+    > Permissions: Binary (yes/no) flags designating whether a user may perform a certain task
+    > Groups: A generic way of applying labels and permissions to more than one user
+    > A configurable password hashing system
+    > Forms for managing user authentication and authorization
+    > View tools for logging in users, or restricting content
+    > A pluggable backend system
+
+# from django.contrib.auth.models import User
+# user = User.objects.create('john', jhn@beat.com', 'johnpassword')
+
+# ./manage.py createsuperuser --username='john' --email= = "hack@gamil.com"
+
+***** Changing Passwrods **********
+
+1) ./manage.py changepassword username
+2) Using set_password()
+   >> u = User.objects.get(username='john')
+   >> u.set_password('new password')
+   >> u.save()
+
+When django.contrib.auth is listed in your INSTALLED_APPS setting, it will ensure that three default permissions – add, change and delete – are created for each Django model defined in one of your installed applications. These permissions will be created for all new models each time you run manage.py migrate.
+
+>> The login_required decorator
+# from django.contrib.auth.decorators import login_required
+
+# @login_required(redirect_field_name='my_redirect_field')
+
+# @login_required(login_url='/accounts/login/')
+
+# from django.contrib.auth.decorators import user_passes_test
+
+def email_check(user):
+    return user.email.endswith('@example.com')
+
+# @user_passes_test(email_check)
+# def my_view(request):
+
+
+

@@ -122,6 +122,8 @@ EMAIL_HOST_PASSWORD = 'sarath123'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+LOGIN_REDIRECT_URL = '/' # It means home view
+
 '''
 LOGGING = {
     'version': 1,
