@@ -1,7 +1,6 @@
 from django.conf.urls import url
-from .views import (viewArticle, viewArticles, disdate, hello, StaticView, DreamRealList, login, UserTest, formView, \
-    contact, AboutUsView, ContactView, create, tagTest)
-from .mViews import SavedProfile
+from .views import (viewArticle, viewArticles, disdate, hello, StaticView, DreamRealList, login, UserTest, formView, 
+    contact, AboutUsView, ContactView, create, tagTest, display_meta, search)
 from .Auth_view import SavedProfile, home
 from django.views.generic import TemplateView
 from django.contrib.auth import views
