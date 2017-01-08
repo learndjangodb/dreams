@@ -1,8 +1,12 @@
 from django.conf.urls import url
 from .views import (viewArticle, viewArticles, disdate, hello, StaticView, DreamRealList, login, UserTest, formView, \
-    contact, AboutUsView, ContactView, create, tagTest)
-from .mViews import SavedProfile
+<<<<<<< Updated upstream
+                    contact, AboutUsView, ContactView, create, tagTest)
 from .Auth_view import SavedProfile, home
+=======
+    contact, AboutUsView, ContactView, create, tagTest, display_meta, search)
+from .mViews import SavedProfile
+>>>>>>> Stashed changes
 from django.views.generic import TemplateView
 from django.contrib.auth import views
 from .forms import LoginForm
@@ -24,10 +28,13 @@ urlpatterns = [
     url(r'^contact2/$', ContactView.as_view(), name="contact2"),
     url(r'^create/$', create, name="adddata"),
     url(r'^tagtst/(?P<value>\w+)/$', tagTest, name="tagtest"),
+<<<<<<< Updated upstream
     url(r'^$', home, name="home"),
     url(r'^login/$', views.login, {'template_name': 'myapp/Auth/login.html', 'authentication_form': LoginForm}),
     url(r'^logout/$', views.logout, {'next_page': '/login'}),
+=======
     url(r'^meta/$', display_meta, name="metainfo"),
     url(r'^searchform/$', TemplateView.as_view(template_name="myapp/search-form.html")),
     url('^search/$', search, name="search"),
+>>>>>>> Stashed changes
 ]

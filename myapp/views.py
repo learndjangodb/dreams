@@ -221,4 +221,21 @@ def create(request):
 
 
 def tagTest(request, value):
-    return render(request, "myapp/tag_test.html", {'value': value, 'hacker': '# Hacker Online'})
+    return render(request, "myapp/tag_test.html", dict(value=value, hacker='# Hacker Online'))
+
+
+def display_meta(request):
+    values = request.META.items()
+    # values.sort()
+    html = []
+    for k, v in values:
+        html.append("<tr><td>%s</td><td>%s</td></tr>" % (k, v))
+    return HttpResponse('<table>%s</table>' % '\n'.join(html))
+
+
+def search(request):
+    if 'q' in request.GET:
+        message = "You searched for: {}".format(request.GET['q'])
+    else:
+        message = "You submitted an empty form"
+    return HttpResponse(message)

@@ -62,12 +62,14 @@ class BookForm(ModelForm):
         model = Book
         fields = ['name', 'authors']
 
+
+<<<<<<< Updated upstream
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username", max_length=30,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
     password = forms.CharField(label="Password", max_length=30,
                                widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'password'}))
-
+=======
 TITLE_CHOICES = (
     ('MR', 'Mr.'),
     ('MRS', 'Mrs.'),
@@ -85,3 +87,4 @@ class AuthorForm2(forms.Form):
 class BookForm2(forms.Form):
     name = forms.CharField(max_length=100)
     authors = forms.ModelMultipleChoiceField(queryset=Author.objects.all())
+>>>>>>> Stashed changes
