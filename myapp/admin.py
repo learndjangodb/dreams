@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DreamReal, Online, Author, Book, OpinionPoll, Response, Person
+from .models import DreamReal, Online, Author, Book, OpinionPoll, Response, Person, Human
 
 
 # Register your models here.
@@ -35,3 +35,8 @@ class AdminResonse(admin.ModelAdmin):
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'colored_name')
+
+
+@admin.register(Human)
+class HumanAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name', 'sex']

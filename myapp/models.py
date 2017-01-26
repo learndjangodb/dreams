@@ -49,9 +49,18 @@ class Author(m.Model):
         return self.name
 
 
+class BookManager(m.Manager):
+    def title_count(self, keyword):
+        return self.filter(name__icontains=keyword).count()
+
+
 class Book(m.Model):
     name = m.CharField(max_length=100)
     authors = m.ManyToManyField(Author)
+    objects = BookManager()
+
+    def __str__(self):
+        return self.name
 
 
 class PollManager(m.Manager):
@@ -100,3 +109,25 @@ class Person(m.Model):
             self.first_name,
             self.last_name
         )
+
+
+class MaleManager(m.Manager):
+    def get_queryset(self):
+        return super(MaleManager, self).get_queryset().filter(sex='M')
+
+
+class FemaleManager(m.Manager):
+    def get_queryset(self):
+        return super(FemaleManager, self).get_queryset().filter(sex='F')
+
+
+class Human(m.Model):
+    first_name = m.CharField(max_length=25)
+    last_name = m.CharField(max_length=25)
+    sex = m.CharField(max_length=1, choices=(
+        ('M', 'Male'),
+        ('F', 'Female')
+    ))
+    people = m.Manager()
+    male = MaleManager()
+    female = FemaleManager()
